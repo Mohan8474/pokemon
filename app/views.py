@@ -1,9 +1,13 @@
+#Installed Imports
 from flask import Blueprint, request, url_for
-from app import app, utils, db
-from app.models import Pokemon
 from sqlalchemy import desc
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.exc import SQLAlchemyError
+
+#Custom Imports
+from app import app, utils, db
+from app.models import Pokemon
+
 
 pokemon_api = Blueprint("pokemon_api", __name__, url_prefix="/pokemon")
 
