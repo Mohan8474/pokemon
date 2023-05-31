@@ -52,7 +52,7 @@ def get_pokemon(id=None):
         id (int, Optional): id to retrieve pokemon
     """
     page = request.args.get("page", 1, type=int)
-    limit = request.args.get("limit", app.config["PAGE_LIMIT"], type=int)
+    limit = request.args.get("limit", 8, type=int)
     order = request.args.get("order", "asc")
     sort = request.args.get("sort", "rank")
     search = request.args.get("search")
