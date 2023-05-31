@@ -10,13 +10,8 @@ def task_to_dict(pokemon):
 
 
 def upsert_do_update(data):
-    
     insert_stmt = insert(Pokemon).values(data)
-    update_columns = {
-        col.name: col
-        for col in insert_stmt.excluded
-        if col.name != "id"
-    }
+    update_columns = {col.name: col for col in insert_stmt.excluded if col.name != "id"}
 
     upsert_statement = insert_stmt.on_conflict_do_update(
         constraint=Pokemon.__table__.primary_key,

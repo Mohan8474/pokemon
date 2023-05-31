@@ -17,14 +17,7 @@ class Pokemon(db.Model):
     sp_def: int = db.Column(db.Integer)
     speed: int = db.Column(db.Integer)
     generation: int = db.Column(db.Integer)
-    legendary: bool = db.Column(db.Boolean, default = False)
+    legendary: bool = db.Column(db.Boolean, default=False)
 
     def get_editable_fields(self):
-        return (
-            "rank",
-            "name",
-            "type_1",
-            "type_2",
-            "generation",
-            "legendary"
-        )
+        return ("rank", "name", "type_1", "type_2", "generation", "legendary")
