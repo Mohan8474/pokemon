@@ -90,7 +90,7 @@ def get_pokemon(id=None):
     if generation:
         pokemon = pokemon.filter(Pokemon.generation == generation)
 
-    pokemon = pokemon.paginate(page=page, per_page=int(limit), error_out=False)
+    pokemon = pokemon.paginate(page=page, per_page=limit, error_out=False)
 
     pokemonn = [utils.task_to_dict(pokemon) for pokemon in pokemon.items]
     if len(pokemonn) == 0:
