@@ -2,13 +2,12 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-# from app.config import Config
+from app.config import Config
 
 app = Flask(__name__)
-# config = Config(app)
-# config.read_config()
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres@localhost:5432/pokemon"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+config = Config(app)
+# print(config)
+
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)

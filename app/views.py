@@ -52,7 +52,7 @@ def get_pokemon(id=None):
         id (int, Optional): id to retrieve pokemon
     """
     page = request.args.get("page", 1, type=int)
-    limit = request.args.get("limit", 8, type=int)
+    limit = request.args.get("limit", app.config["PAGE_LIMIT"], type=int)
     order = request.args.get("order", "asc")
     sort = request.args.get("sort", "rank")
     search = request.args.get("search")
@@ -90,7 +90,7 @@ def get_pokemon(id=None):
     if generation:
         pokemon = pokemon.filter(Pokemon.generation == generation)
 
-    pokemon = pokemon.paginate(page=page, per_page=limit, error_out=False)
+    pokemon = pokemon.paginate(page=page, per_page=int(limit), error_out=False)
 
     pokemonn = [utils.task_to_dict(pokemon) for pokemon in pokemon.items]
     if len(pokemonn) == 0:
@@ -109,6 +109,7 @@ def get_pokemon(id=None):
         "total": pokemon.total,
         "order": order,
         "sort": sort,
+        "page" : pokemon.page,
         "total_pages": pokemon.pages,
         "next_page": next_url,
     }, 200
