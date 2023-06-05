@@ -7,6 +7,7 @@ from sqlalchemy.exc import SQLAlchemyError
 #Custom Imports
 from app import app, utils, db
 from app.models import Pokemon
+# from app.auth import auth_required
 
 
 pokemon_api = Blueprint("pokemon_api", __name__, url_prefix="/pokemon")
@@ -59,7 +60,7 @@ def get_pokemon(id=None):
     legendary = request.args.get("legendary")
     type_1 = request.args.get("type_1")
     type_2 = request.args.get("type_2")
-    generation = request.args.get("generation", type=int)
+    generation = request.args.get("generation",1, type=int)
     pokemon = Pokemon.query
 
     if id:
@@ -165,7 +166,7 @@ def add_pokemon(id=None):
     update_columns = {col.name: col for col in insert_stmt.excluded if col.name != "id"}
 
     upsert_statement = insert_stmt.on_conflict_do_update(
-        constraint=Pokemon.__table__.primary_key,
+        constraint=Pokemon.__table__.c.id,
         set_=update_columns,
     )
 
