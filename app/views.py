@@ -2,7 +2,7 @@
 from flask import Blueprint, request, url_for
 from sqlalchemy import desc
 from sqlalchemy.exc import SQLAlchemyError
-from flask_jwt_extended import jwt_required
+# from flask_jwt_extended import jwt_required
 
 # Custom Imports
 from app import app, db, utils
@@ -38,7 +38,7 @@ def handle_sql_exception(e):
 
 @pokemon_api.route("/", methods=["GET"])
 @pokemon_api.route("/<int:id>", methods=["GET"])
-@jwt_required
+# @jwt_required
 def get_pokemon(id=None):
     """
     This API retrieves pokemon
