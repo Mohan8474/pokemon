@@ -20,8 +20,6 @@ class Pokemon(db.Model):
     generation: int = db.Column(db.Integer)
     legendary: bool = db.Column(db.Boolean, default=False)
 
-    def get_editable_fields(self):
-        return ("rank", "name", "type_1", "type_2", "generation", "legendary")
 
 class PokemonSchema(ma.Schema):
     class Meta:
