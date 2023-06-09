@@ -2,21 +2,28 @@ from app.models import Pokemon, db
 from sqlalchemy.dialects.postgresql import insert
 
 
-def task_to_dict(pokemon):
-    return {column: getattr(pokemon, column) for column in Pokemon.__table__.c.keys()}
-
-
 # check if it works when there are multiple tables and has relations between each table
 
 
-def upsert_do_update(data):
-    insert_stmt = insert(Pokemon).values(data)
-    update_columns = {col.name: col for col in insert_stmt.excluded if col.name != "id"}
+def upsert_do_update(values):
+    try:
 
-    upsert_statement = insert_stmt.on_conflict_do_update(
-        constraint=Pokemon.__table__.primary_key,
-        set_=update_columns,
-    )
+        for value in values:
+            insert_stmt = insert(Pokemon).values(value)
+            to_update = {col.name: col for col in insert_stmt.excluded if col.name != "id"}
 
-    db.session.execute(upsert_statement)
-    db.session.commit()
+            upsert_statement = insert_stmt.on_conflict_do_update(
+                constraint="pokemon_pkey",
+                set_=to_update,
+            )
+
+            db.session.execute(upsert_statement)
+        db.session.commit()
+
+        return {
+            "success": True,
+            "message": "records updated.",
+        }
+    except Exception as e:
+        print(f"Error: {e}")
+ 

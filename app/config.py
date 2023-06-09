@@ -5,7 +5,6 @@ import json
 class Config:
     def __init__(self, app):
         self.config_parser = configparser.RawConfigParser()
-        self.config = {}
         self.read_config(app)
         self.init_app(app)
 

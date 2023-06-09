@@ -1,5 +1,6 @@
-from app import app, db
+from app import db, ma
 from dataclasses import dataclass
+
 
 
 @dataclass
@@ -21,3 +22,21 @@ class Pokemon(db.Model):
 
     def get_editable_fields(self):
         return ("rank", "name", "type_1", "type_2", "generation", "legendary")
+
+class PokemonSchema(ma.Schema):
+    class Meta:
+        fields = (
+            "rank",
+            "name",
+            "type_1",
+            "type_2",
+            "total",
+            "hp",
+            "attack",
+            "defense",
+            "sp_atk",
+            "sp_def",
+            "speed",
+            "generation",
+            "legendary",
+        )
